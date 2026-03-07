@@ -14,6 +14,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import com.api.demo.dto.SegmentDTO;
 import com.api.demo.service.SegmentService;
@@ -28,6 +29,7 @@ class SegmentControllerTest {
     private SegmentController segmentController;
 
     @Test
+    @WithMockUser
     void testGetAllSegments() {
         SegmentDTO dto = new SegmentDTO(1L, "Segment");
         when(segmentService.findAll()).thenReturn(List.of(dto));
@@ -39,6 +41,7 @@ class SegmentControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testGetSegmentById() {
         SegmentDTO dto = new SegmentDTO(1L, "Segment");
         when(segmentService.findById(1L)).thenReturn(Optional.of(dto));
@@ -50,6 +53,7 @@ class SegmentControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testGetSegmentByIdNotFound() {
         when(segmentService.findById(1L)).thenReturn(Optional.empty());
 
@@ -59,6 +63,7 @@ class SegmentControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testCreateSegment() {
         SegmentDTO input = new SegmentDTO(null, "New Segment");
         SegmentDTO output = new SegmentDTO(1L, "New Segment");
@@ -74,6 +79,7 @@ class SegmentControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testUpdateSegment() {
         SegmentDTO input = new SegmentDTO(1L, "Updated Segment");
         SegmentDTO output = new SegmentDTO(1L, "Updated Segment");
@@ -88,6 +94,7 @@ class SegmentControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testDeleteSegment() {
         doNothing().when(segmentService).deleteById(1L);
 
