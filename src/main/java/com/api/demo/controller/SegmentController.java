@@ -1,7 +1,7 @@
 package com.api.demo.controller;
 
+import jakarta.validation.Valid;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.demo.dto.SegmentDTO;
 import com.api.demo.service.SegmentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/segments")
+@Tag(name = "Segmentos", description = "Endpoints para gerenciamento de segmentos")
 public class SegmentController {
 
     private final SegmentService segmentService;
@@ -26,19 +34,34 @@ public class SegmentController {
     }
 
     @GetMapping
+    @Operation(summary = "Listar segmentos", description = "Lista todos os segmentos cadastrados")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de segmentos retornada com sucesso")
+    })
     public List<SegmentDTO> getAllSegments() {
         return segmentService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SegmentDTO> getSegmentById(@PathVariable Long id) {
+    @Operation(summary = "Buscar segmento por ID", description = "Busca um segmento específico por ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Segmento encontrado"),
+        @ApiResponse(responseCode = "404", description = "Segmento não encontrado")
+    })
+    public ResponseEntity<SegmentDTO> getSegmentById(@Parameter(description = "ID do segmento") @PathVariable Long id) {
         return segmentService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<?> createSegment(@ModelAttribute SegmentDTO segmentDTO) {
+    @Operation(summary = "Criar segmento", description = "Cria um novo segmento")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Segmento criado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos", 
+            content = @Content(mediaType = "text/plain"))
+    })
+    public ResponseEntity<?> createSegment(@Valid @ModelAttribute SegmentDTO segmentDTO) {
         try {
             SegmentDTO created = segmentService.save(segmentDTO);
             return ResponseEntity.ok(created);
@@ -48,9 +71,16 @@ public class SegmentController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Atualizar segmento", description = "Atualiza um segmento existente")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Segmento atualizado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos", 
+            content = @Content(mediaType = "text/plain")),
+        @ApiResponse(responseCode = "404", description = "Segmento não encontrado")
+    })
     public ResponseEntity<?> updateSegment(
-            @PathVariable Long id,
-            @ModelAttribute SegmentDTO segmentDTO) {
+            @Parameter(description = "ID do segmento") @PathVariable Long id,
+            @Valid @ModelAttribute SegmentDTO segmentDTO) {
         segmentDTO.setId(id);
         try {
             SegmentDTO updated = segmentService.save(segmentDTO);
@@ -63,7 +93,12 @@ public class SegmentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSegment(@PathVariable Long id) {
+    @Operation(summary = "Deletar segmento", description = "Remove um segmento")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Segmento removido com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Segmento não encontrado")
+    })
+    public ResponseEntity<Void> deleteSegment(@Parameter(description = "ID do segmento") @PathVariable Long id) {
         segmentService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
