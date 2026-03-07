@@ -44,6 +44,16 @@
 ![Flyway](https://img.shields.io/badge/Flyway-CC0200?style=for-the-badge&logo=flyway)
 ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 
+### Tecnologias Principais
+- **Spring Boot 4.0.3**: Framework principal
+- **Spring Data JPA**: Persistência de dados
+- **Spring Security**: Autenticação e autorização com JWT
+- **JWT (JSON Web Tokens)**: Autenticação stateless com HS256
+- **Flyway**: Migrações de banco de dados
+- **PostgreSQL**: Banco de dados
+- **RestTemplate**: Cliente HTTP para integração com APIs externas
+- **SpringDoc OpenAPI**: Documentação Swagger
+
 
 ## 🚀 Instalando e Executando
 
@@ -123,7 +133,7 @@ Para usar o token, inclua no header: `Authorization: Bearer <token>`
 
 ### Como Usar a API
 
-#### 1. Via curl
+#### Via curl
 
 ```bash
 # 1. Obter token
@@ -142,13 +152,7 @@ curl -X POST http://localhost:8080/segments \
   -d '{"name": "Tecnologia"}'
 ```
 
-#### 2. Via Postman
-
-📦 **Coleção Pronta**: Importe o arquivo [postman_collection.json](postman_collection.json) no Postman para testar todos os endpoints com autenticação automática.
-
-#### 3. Via Swagger UI
-
-Acesse a documentação interativa em `http://localhost:8080/swagger-ui/index.html` para testar endpoints diretamente na interface.
+Para testar via Postman ou Swagger UI, consulte as seções dedicadas abaixo.
 
 ### Teste de Serviço
 - **GET /test**
@@ -374,16 +378,6 @@ src/main/java/com/api/demo/
 └── SecurityConfig.java  # Configurações de segurança
 ```
 
-### Tecnologias Principais
-- **Spring Boot 4.0.3**: Framework principal
-- **Spring Data JPA**: Persistência de dados
-- **Spring Security**: Autenticação e autorização com JWT
-- **JWT (JSON Web Tokens)**: Autenticação stateless com HS256
-- **Flyway**: Migrações de banco de dados
-- **PostgreSQL**: Banco de dados
-- **RestTemplate**: Cliente HTTP para integração com APIs externas
-- **SpringDoc OpenAPI**: Documentação Swagger
-
 ### Funcionalidades Chave
 - **Sincronização Automática**: Na inicialização da aplicação, cidades de Santa Catarina são sincronizadas automaticamente da API do IBGE.
 - **CRUD Completo**: Para cidades (somente leitura e sincronização), segmentos e empresas.
@@ -490,40 +484,6 @@ O relatório de cobertura estará disponível em `target/site/jacoco/index.html`
 
 **Total**: Cobertura superior a 80% do código
 
-## 📊 Banco de Dados
-
-### Migrações
-As migrações são gerenciadas pelo Flyway. Arquivos principais:
-- `V1__Create_cities_table.sql`: Cria a tabela `cities`
-- `V2__Create_segments_table.sql`: Cria a tabela `segments` e insere segmentos iniciais (Tecnologia, Comércio, Indústria, Serviços, Agronegócio)
-- `V3__Create_companies_table.sql`: Cria a tabela `companies` com relacionamentos para cidades e segmentos
-
-### Estrutura das Tabelas
-```sql
--- Cities
-CREATE TABLE cities (
-    id BIGSERIAL PRIMARY KEY,
-    code INTEGER UNIQUE NOT NULL,
-    name VARCHAR(255) NOT NULL
-);
-
--- Segments
-CREATE TABLE segments (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL
-);
-
--- Companies
-CREATE TABLE companies (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    responsible_name VARCHAR(255) NOT NULL,
-    city_id BIGINT REFERENCES cities(id),
-    email VARCHAR(255),
-    segment_id BIGINT REFERENCES segments(id),
-    status BOOLEAN NOT NULL
-```    
-
 ## 📦 Deploy
 
 ### Gerar JAR Executável
@@ -570,30 +530,6 @@ docker build -t challenge-backend .
 docker run -d -p 8080:8080 \
   -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/demo \
   --name challenge-app challenge-backend
-```
-
-## Comandos Úteis
-
-### Compilar
-```bash
-./mvnw compile
-```
-###  Executar testes
-```bash
-./mvnw test
-```
-### Executar aplicação
-```bash
-./mvnw spring-boot:run
-```
-### Limpar e reconstruir
-```bash
-./mvnw clean install
-```
-
-### Gerar relatório de cobertura
-```bash
-./mvnw test jacoco:report
 ```
 
 ### Configurações
