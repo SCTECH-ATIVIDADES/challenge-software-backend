@@ -47,13 +47,7 @@
 
 ### Opção 1: Execução Rápida com Maven
 
-1. **Clone o repositório**
-   ```bash
-   git clone <repository-url>
-   cd challenge-software-backend
-   ```
-
-2. **Configure o PostgreSQL**
+1. **Configure o PostgreSQL**
    
    Certifique-se de que o PostgreSQL está rodando na porta 5432 com um banco de dados chamado `demo`, ou use Docker:
    ```bash
@@ -64,12 +58,12 @@
      -d postgres:15
    ```
 
-3. **Execute a aplicação**
+2. **Execute a aplicação**
    ```bash
    ./mvnw spring-boot:run
    ```
 
-4. **Acesse o sistema**
+3. **Acesse o sistema**
    - 🌐 API: http://localhost:8080
    - 📚 Swagger UI: http://localhost:8080/swagger-ui/index.html
    - 🔐 Login: Use as credenciais admin/admin123
