@@ -1,7 +1,7 @@
 # Desafio Prático de Software
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/SCTECH-ATIVIDADES/challenge-software-backend?style=for-the-badge)
-![GitHub branches count](https://img.shields.io/badge/branches-5-blue?style=for-the-badge)
+![GitHub branches count](https://img.shields.io/badge/branches-7-blue?style=for-the-badge)
 
 > [!NOTE] Projeto utilizado como desafio prático de software para o projeto SCTECH
 > API REST para gerenciamento de empreendimentos em Santa Catarina, com integração à API do IBGE para municípios
