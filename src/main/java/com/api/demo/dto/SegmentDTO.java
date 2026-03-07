@@ -2,6 +2,8 @@ package com.api.demo.dto;
 
 import com.api.demo.entity.Segment;
 
+import jakarta.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class SegmentDTO {
 
     private Long id;
+    @NotBlank(message = "Nome é obrigatório")
     private String name;
 
     public SegmentDTO(Segment segment) {

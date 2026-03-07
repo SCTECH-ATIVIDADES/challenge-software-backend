@@ -1,5 +1,6 @@
 package com.api.demo.controller;
 
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,7 +61,7 @@ public class SegmentController {
         @ApiResponse(responseCode = "400", description = "Dados inválidos", 
             content = @Content(mediaType = "text/plain"))
     })
-    public ResponseEntity<?> createSegment(@ModelAttribute SegmentDTO segmentDTO) {
+    public ResponseEntity<?> createSegment(@Valid @ModelAttribute SegmentDTO segmentDTO) {
         try {
             SegmentDTO created = segmentService.save(segmentDTO);
             return ResponseEntity.ok(created);
@@ -79,7 +80,7 @@ public class SegmentController {
     })
     public ResponseEntity<?> updateSegment(
             @Parameter(description = "ID do segmento") @PathVariable Long id,
-            @ModelAttribute SegmentDTO segmentDTO) {
+            @Valid @ModelAttribute SegmentDTO segmentDTO) {
         segmentDTO.setId(id);
         try {
             SegmentDTO updated = segmentService.save(segmentDTO);

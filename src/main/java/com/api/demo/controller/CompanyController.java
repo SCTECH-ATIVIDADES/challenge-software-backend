@@ -1,7 +1,7 @@
 package com.api.demo.controller;
 
+import jakarta.validation.Valid;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,7 +59,7 @@ public class CompanyController {
         @ApiResponse(responseCode = "200", description = "Empresa criada com sucesso"),
         @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    public CompanyDTO createCompany(@ModelAttribute CompanyDTO companyDTO) {
+    public CompanyDTO createCompany(@Valid @ModelAttribute CompanyDTO companyDTO) {
         return companyService.save(companyDTO);
     }
 
@@ -71,7 +71,7 @@ public class CompanyController {
     })
     public ResponseEntity<CompanyDTO> updateCompany(
             @Parameter(description = "ID da empresa") @PathVariable Long id,
-            @ModelAttribute CompanyDTO companyDTO) {
+            @Valid @ModelAttribute CompanyDTO companyDTO) {
         companyDTO.setId(id);
         try {
             CompanyDTO updated = companyService.save(companyDTO);
