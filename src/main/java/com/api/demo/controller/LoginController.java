@@ -13,8 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.demo.security.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/login")
+@Tag(name = "Autenticação", description = "Endpoints de autenticação")
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
@@ -27,6 +35,15 @@ public class LoginController {
     }
 
     @PostMapping
+    @Operation(summary = "Login", description = "Autentica o usuário e retorna um token JWT")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Login bem-sucedido", 
+            content = @Content(mediaType = "application/json", 
+                schema = @Schema(example = "{\"token\": \"eyJhbGciOiJIUzI1NiJ9...\"}"))),
+        @ApiResponse(responseCode = "401", description = "Credenciais inválidas", 
+            content = @Content(mediaType = "application/json", 
+                schema = @Schema(example = "{\"error\": \"Invalid credentials\"}")))
+    })
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> loginRequest) {
         String username = loginRequest.get("username");
         String password = loginRequest.get("password");

@@ -28,7 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login", "/test").permitAll()
+                .requestMatchers("/login", "/test", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
