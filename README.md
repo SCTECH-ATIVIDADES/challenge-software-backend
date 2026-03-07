@@ -449,10 +449,6 @@ O projeto conta com uma suíte completa de testes automatizados.
 ### Executar Todos os Testes
 
 ```bash
-# Com Maven
-./mvnw test
-
-# Com Maven Wrapper
 ./mvnw test
 ```
 
@@ -463,14 +459,6 @@ O projeto conta com uma suíte completa de testes automatizados.
 ```
 
 O relatório de cobertura estará disponível em `target/site/jacoco/index.html` (abra no navegador para visualizar).
-
-### Tecnologias de Teste
-
-- **JUnit 5**: Framework de testes
-- **Spring Boot Test**: Testes de integração
-- **MockMvc**: Testes de controllers REST
-- **H2 Database**: Banco em memória para testes
-- **Hamcrest**: Assertions avançadas
 
 ### Cobertura de Testes
 
