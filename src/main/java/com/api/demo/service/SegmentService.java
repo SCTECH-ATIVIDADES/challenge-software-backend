@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.api.demo.dto.SegmentDTO;
 import com.api.demo.entity.Segment;
 import com.api.demo.repository.SegmentRepository;
-import org.springframework.dao.DataIntegrityViolationException;
 
 @Service
 public class SegmentService {
