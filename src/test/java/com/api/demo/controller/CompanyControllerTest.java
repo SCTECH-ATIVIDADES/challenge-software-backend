@@ -14,6 +14,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import com.api.demo.dto.CompanyDTO;
 import com.api.demo.service.CompanyService;
@@ -28,6 +29,7 @@ class CompanyControllerTest {
     private CompanyController companyController;
 
     @Test
+    @WithMockUser
     void testGetAllCompanies() {
         CompanyDTO dto = new CompanyDTO(1L, "Company", "Responsible", 1L, "email@test.com", 1L, true);
         when(companyService.findAll()).thenReturn(List.of(dto));
@@ -39,6 +41,7 @@ class CompanyControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testGetCompanyById() {
         CompanyDTO dto = new CompanyDTO(1L, "Company", "Responsible", 1L, "email@test.com", 1L, true);
         when(companyService.findById(1L)).thenReturn(Optional.of(dto));
@@ -50,6 +53,7 @@ class CompanyControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testGetCompanyByIdNotFound() {
         when(companyService.findById(1L)).thenReturn(Optional.empty());
 
@@ -59,6 +63,7 @@ class CompanyControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testCreateCompany() {
         CompanyDTO input = new CompanyDTO(null, "Company", "Responsible", 1L, "email@test.com", 1L, true);
         CompanyDTO output = new CompanyDTO(1L, "Company", "Responsible", 1L, "email@test.com", 1L, true);
@@ -71,6 +76,7 @@ class CompanyControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testUpdateCompany() {
         CompanyDTO input = new CompanyDTO(1L, "Updated Company", "Responsible", 1L, "email@test.com", 1L, true);
         CompanyDTO output = new CompanyDTO(1L, "Updated Company", "Responsible", 1L, "email@test.com", 1L, true);
@@ -83,6 +89,7 @@ class CompanyControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testDeleteCompany() {
         doNothing().when(companyService).deleteById(1L);
 

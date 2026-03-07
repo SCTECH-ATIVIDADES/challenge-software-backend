@@ -51,6 +51,7 @@ class CityServiceTest {
 
         cityService.syncCities();
 
+        @SuppressWarnings("unchecked")
         ArgumentCaptor<Iterable<City>> captor = ArgumentCaptor.forClass(Iterable.class);
         verify(cityRepository).saveAll(captor.capture());
         Iterable<City> savedCities = captor.getValue();
