@@ -21,7 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (this.username.equals(username)) {
             return User.builder()
                     .username(this.username)
-                    .password("{noop}" + this.password) // NoOpPasswordEncoder for simplicity
+                    .password(this.password) // NoOpPasswordEncoder expects raw password
                     .roles("USER")
                     .build();
         }
