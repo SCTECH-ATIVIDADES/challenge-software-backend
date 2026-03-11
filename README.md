@@ -512,3 +512,7 @@ docker run -d -p 8080:8080 \
 - `jwt.expiration`: Tempo de expiração do token em milissegundos (padrão: 86400000 = 24 horas)
 - `app.user.username`: Nome de usuário para login (padrão: admin)
 - `app.user.password`: Senha para login (padrão: admin123)
+
+## Vídeo do Projeto
+
+https://youtu.be/QFPW7g09MDA
