@@ -57,46 +57,31 @@
 
 ## 🚀 Instalando e Executando
 
-### Opção 1: Execução Rápida com Maven
+### Desenvolvimento com Dev Container (Recomendado)
 
-1. **Configure o PostgreSQL**
-   
-   Certifique-se de que o PostgreSQL está rodando na porta 5432 com um banco de dados chamado `demo`, ou use Docker:
-   ```bash
-   docker run --name challenge-postgres -p 5432:5432 \
-     -e POSTGRES_DB=demo \
-     -e POSTGRES_USER=postgres \
-     -e POSTGRES_PASSWORD=password \
-     -d postgres:15
-   ```
+Este projeto utiliza Dev Containers para fornecer um ambiente de desenvolvimento consistente e isolado.
 
-2. **Execute a aplicação**
+1. **Pré-requisitos**
+   - Visual Studio Code
+   - Extensão "Dev Containers" instalada
+   - Docker instalado e em execução
+
+2. **Abrir no Dev Container**
+   - Abra o projeto no VS Code
+   - Quando solicitado, clique em "Reopen in Container" ou use o comando `Dev Containers: Reopen in Container`
+   - O ambiente será configurado automaticamente com Java 17, Maven e PostgreSQL
+
+3. **Executar a aplicação**
    ```bash
    ./mvnw spring-boot:run
    ```
 
-3. **Acesse o sistema**
+4. **Acesse o sistema**
    - 🌐 API: http://localhost:8080
    - 📚 Swagger UI: http://localhost:8080/swagger-ui/index.html
    - 🔐 Login: Use as credenciais admin/admin123
 
-### Opção 2: Desenvolvimento com Docker (Recomendado)
-
-1. **Certifique-se de ter Docker instalado**
-
-2. **Execute com perfil Docker**
-   ```bash
-   ./mvnw spring-boot:run -Dspring-boot.run.profiles=docker
-   ```
-
-   Este perfil configura automaticamente a conexão com PostgreSQL em container.
-
-3. **Ou use Docker Compose (se disponível)**
-   ```bash
-   docker-compose up -d
-   ```
-
-✅ **Vantagens**: Ambiente isolado, PostgreSQL automático, configuração zero
+✅ **Vantagens**: Ambiente consistente, dependências isoladas, PostgreSQL integrado
 
 A aplicação estará disponível em `http://localhost:8080`
 
