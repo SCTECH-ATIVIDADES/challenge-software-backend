@@ -12,7 +12,8 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// This can be used to network with other containers or with the host.
 	"forwardPorts": [
-		8080
+		8080,
+		5432
 	],
 	"customizations": {
 		"vscode": {
@@ -20,10 +21,10 @@
 				"ms-ossdata.vscode-pgsql"
 			]
 		}
-	}
+	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "java -version",
+	"postCreateCommand": "mvn clean compile",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
